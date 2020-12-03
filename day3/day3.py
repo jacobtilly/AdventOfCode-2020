@@ -1,4 +1,7 @@
 import math
+import time
+
+starttime = time.time()
 
 def openInput(stage):
     if stage == "real":
@@ -24,16 +27,8 @@ def openInput(stage):
 
 def createInputMap(input, rightStep, downStep):
     inputMap = []
-    # goal: to have the map look like map[vertical][horizontal], i.e. map is array of arrays containing horizontal chars
-    # python – string can automatically be used as "array" (i think...)
-    # the map need to continue enough to the right for all the steps. If right step is 3 and down is 1, the pointer will move 3 steps
-    # right for every step to the right, i.e. the map needs to be 3*(rows) wide
-    inputWidth = len(input[0])
-    inputHeight = len(input)
-    countHeight = inputHeight // downStep
-    requiredWidth = rightStep * countHeight
-    multiple = math.ceil(float(requiredWidth)/float(inputWidth))
     currentrow = 0
+    multiple = math.ceil(float(rightStep * (len(input) // downStep))/float(len(input[0])))
     for row in input:
         inputMap.append([])
         inputMap[currentrow].append(row*multiple)
@@ -41,16 +36,13 @@ def createInputMap(input, rightStep, downStep):
     return inputMap
 
 def part1(stage, rightStep, downStep):
-    # get the input
     if stage == "real":
         input = openInput("real")
     else:
         input = openInput("test")
 
-    # convert input to a map
     input = createInputMap(input, rightStep, downStep)
 
-    # start looping through map
     pointerRight = 0
     pointerDown = 0
     totalTrees = 0
@@ -65,3 +57,6 @@ def part1(stage, rightStep, downStep):
 
 trees = part1("real", 3, 1)
 print("Total Trees for slope in input:", trees)
+
+finishtime = time.time()
+print("Execution time: ",finishtime-starttime, "seconds")
