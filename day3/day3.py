@@ -1,8 +1,6 @@
 import math
 import time
 
-starttime = time.time()
-
 def openInput(stage):
     if stage == "real":
         f = open("/Users/jacobtilly/Documents/GitHub/AdventOfCode-2020/day3/input.txt", "r")
@@ -35,7 +33,7 @@ def createInputMap(input, rightStep, downStep):
         currentrow += 1
     return inputMap
 
-def part1(stage, rightStep, downStep):
+def calculateTrees(stage, rightStep, downStep):
     if stage == "real":
         input = openInput("real")
     else:
@@ -55,8 +53,24 @@ def part1(stage, rightStep, downStep):
     
     return totalTrees
 
-trees = part1("real", 3, 1)
-print("Total Trees for slope in input:", trees)
+print("\n"*30)
+print("Advent of Code")
+print("Jacob Tilly, day 3")
 
-finishtime = time.time()
-print("Execution time: ",finishtime-starttime, "seconds")
+while True:
+    run = input("Type 1 or 2 for part 1 or part 2\n» ")
+    print("\n")
+    starttime = time.time()
+    if(run == str(1)):
+        trees = calculateTrees("real", 3, 1)
+        print("Total Trees for slope in input:", trees)
+    elif(run == str(2)):
+        #trees = part2("real")
+        totalTrees = calculateTrees("real", 1, 1) * calculateTrees("real", 3, 1) * calculateTrees("real", 5, 1) * calculateTrees("real", 7, 1) * calculateTrees("real", 1, 2)
+        print("Total Trees in part 2:", totalTrees)
+    else:
+        print("Invalid choice! Please try again.")
+
+    finishtime = time.time()
+    print("Execution time:",finishtime-starttime)
+    print("\n")
