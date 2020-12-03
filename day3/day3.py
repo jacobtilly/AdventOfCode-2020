@@ -33,26 +33,19 @@ def createInputMap(input, rightStep, downStep):
         currentrow += 1
     return inputMap
 
-def calculateTrees(stage, rightStep, downStep):
-    if stage == "real":
-        input = openInput("real")
-    else:
-        input = openInput("test")
-
-    input = createInputMap(input, rightStep, downStep)
-
+def calculateTrees(inputMap, rightStep, downStep):
     pointerRight = 0
     pointerDown = 0
     totalTrees = 0
-
-    while pointerDown < len(input)-1:
+    while pointerDown < len(inputMap)-1:
         pointerRight += rightStep
         pointerDown += downStep
-        if(input[pointerDown][0][pointerRight] == "#"):
+        if(inputMap[pointerDown][0][pointerRight] == "#"):
             totalTrees += 1
-    
     return totalTrees
 
+
+# UI, the code will run from below
 print("\n"*30)
 print("Advent of Code")
 print("Jacob Tilly, day 3")
@@ -62,11 +55,15 @@ while True:
     print("\n")
     starttime = time.time()
     if(run == str(1)):
-        trees = calculateTrees("real", 3, 1)
+        inputMap = createInputMap(openInput("real"), 3, 1)
+        trees = calculateTrees(inputMap, 3, 1)
         print("Total Trees for slope in input:", trees)
     elif(run == str(2)):
-        #trees = part2("real")
-        totalTrees = calculateTrees("real", 1, 1) * calculateTrees("real", 3, 1) * calculateTrees("real", 5, 1) * calculateTrees("real", 7, 1) * calculateTrees("real", 1, 2)
+        slopes = [[1,1],[3,1],[5,1],[7,1],[1,2]]
+        inputMap = createInputMap(openInput("real"), 14, 2)
+        totalTrees = 1 # init as 1 for multiplication purposes... 0*x = 0
+        for slope in slopes:
+            totalTrees = totalTrees * calculateTrees(inputMap, slope[0], slope[1])
         print("Total Trees in part 2:", totalTrees)
     else:
         print("Invalid choice! Please try again.")
