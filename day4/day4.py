@@ -29,7 +29,6 @@ def checkRequiredFields(passport: dict, requiredFields: list):
         if not field in passport: valid = False
     return valid
 
-
 def validateFields(passport,requirements):
     valid = True
     for field in passport:
