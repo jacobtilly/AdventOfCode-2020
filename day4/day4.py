@@ -21,32 +21,13 @@ def getPassportDictionaries(stage):
         passportList.append(passportDictionary)
     return passportList
 
-def checkRequiredFields(passport: dict, requiredFields: list):
-    valid = True
-    for field in requiredFields:
-        if not field in passport: valid = False
-    return valid
-
 def validateFields(passport,requirements):
-    valid = True
-    for field in passport:
-        if field in requirements:
-            regexRequirement = re.compile(requirements[field])
-            if not regexRequirement.match(passport[field]): valid = False
-    return valid
+    invalid = [field for field in requirements if (not(field in passport)) or (not(re.compile(requirements[field] if requirements[field] != '' else '^.+$').match(passport[field])))]
+    return True if len(invalid) == 0 else False
 
-def part1():
-    passportList = getPassportDictionaries("real")
-    validPassports = 0
-    for passport in passportList:
-        requiredFields = ['byr','iyr','eyr','hgt','hcl','ecl','pid']
-        if checkRequiredFields(passport, requiredFields) == True:
-            validPassports += 1
-    return validPassports
+def part1(): return len([passport for passport in getPassportDictionaries("real") if validateFields(passport,{'byr':'','iyr':'','eyr':'','hgt':'', 'hcl':'', 'ecl':'', 'pid':''})])
 
 def part2():
-    passportList = getPassportDictionaries("real")
-    validPassports = 0
     requirements = {
         'byr': '^[1][9][2-9][0-9]$|[2][0][0][0-2]$',
         'iyr': '^[2][0][1][0-9]$|[2][0][2][0]$',
@@ -56,16 +37,12 @@ def part2():
         'ecl': '^(amb)$|^(blu)$|^(brn)$|^(gry)$|^(grn)$|^(hzl)$|^(oth)$',
         'pid': '^\d{9}$'
     }
-    requiredFields = ['byr','iyr','eyr','hgt','hcl','ecl','pid']
-    for passport in passportList:
-        if checkRequiredFields(passport, requiredFields) == True and validateFields(passport,requirements) == True:
-            validPassports += 1
-    return validPassports
+    return len([passport for passport in getPassportDictionaries("real") if validateFields(passport,requirements)])
 
 start = time.time()
 
-#print(part1())
-print(part2())
+print(part1())
+#print(part2())
 
 diff = time.time() - start
 print("Execution Time:",diff,"seconds")
