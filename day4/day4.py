@@ -17,9 +17,7 @@ def getPassportDictionaries(stage):
         passportDictionary = {}
         for row in passportContents:
             row = row.split(':')
-            field = row[0]
-            value = row[1]
-            passportDictionary[field] = value
+            passportDictionary[row[0]] = row[1]
         passportList.append(passportDictionary)
     return passportList
 
