@@ -66,7 +66,9 @@ def part2():
     return validPassports
 
 start = time.time()
+
 #print(part1())
 print(part2())
+
 diff = time.time() - start
 print("Execution Time:",diff,"seconds")
