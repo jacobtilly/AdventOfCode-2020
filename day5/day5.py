@@ -1,5 +1,3 @@
-import time
-
 def openInput():
     return [(seatrow[:7],seatrow[7:]) for seatrow in open("/Users/jacobtilly/Documents/GitHub/AdventOfCode-2020/day5/input.txt", "r").read().split('\n')]
 
