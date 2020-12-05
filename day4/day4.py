@@ -5,7 +5,8 @@ def getPassportDictionaries():
     return [{row.split(':')[0] : row.split(':')[1] for row in passport.split('\n')} for passport in passports]
 
 def validateFields(passport,requirements):
-    invalid = [field for field in requirements if (not(field in passport)) or (not(re.compile(requirements[field] if requirements[field] != '' else '^.+$').match(passport[field])))] # if field value requirement is empty, field needs to exist but can be anything
+    invalid = [field for field in requirements if (not(field in passport)) or (not(re.compile(requirements[field] if requirements[field] != '' else '^.+$').match(passport[field])))] 
+    # if field value requirement is empty, field needs to exist but can be anything
     return True if len(invalid) == 0 else False
 
 def part1(): return len([passport for passport in getPassportDictionaries() if validateFields(passport,{'byr':'','iyr':'','eyr':'','hgt':'', 'hcl':'', 'ecl':'', 'pid':''})])

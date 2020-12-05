@@ -157,7 +157,7 @@ def part2():
         print('====================================================================================')
         print('Total Valid Passports:',validPassports)
         print('Total Controlled Passports:',controlledPassports)
-        time.sleep(0.7)
+        time.sleep(0.02)
             
     return validPassports
 
