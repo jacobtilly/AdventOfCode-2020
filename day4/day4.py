@@ -22,5 +22,7 @@ def part2():
     }
     return len([passport for passport in getPassportDictionaries() if validateFields(passport,requirements)])
 
+start = time.time()
 print("Valid passports according to part 1 rules:",part1())
 print("Valid passports according to part 2 rules:",part2())
+print("Execution time:",time.time()-start)
