@@ -1,31 +1,18 @@
-def getInput(debug = ""):
-    if(debug != "debug"):
-        declarationFormGroups = open("/Users/jacobtilly/Documents/GitHub/AdventOfCode-2020/day6/input.txt", "r").read().split("\n\n")
-    else:
-        declarationFormGroups = open("/Users/jacobtilly/Documents/GitHub/AdventOfCode-2020/day6/input-test.txt", "r").read().split("\n\n")
+def getInput(filename):
+        return open("/Users/jacobtilly/Documents/GitHub/AdventOfCode-2020/day6/"+filename, "r").read().replace('\n\n',',').replace("\n"," ").split(",")
 
-    return [declarationForm.split('\n') for declarationForm in declarationFormGroups]
+def countAnswers(input):
+	totalUnique, totalAgreed = 0, 0
 
-def getUniqueAnswers(groupAnswers):
-    groupUniqueAnswers = []
-    for group in groupAnswers:
-        for person in group:
-            for question in person:
-                if question not in groupUniqueAnswers:
-                    groupUniqueAnswers.append(question)
-    return groupUniqueAnswers
+	for row in input:
+		totalUnique += len(''.join(set(row)).replace(' ',''))
+		personAnswers = row.split(' ')
+		choices = 'abcdefghijklmnopqrstuvwxyz'
+		for answer in personAnswers:
+			choices = ''.join(set(choices).intersection(''.join(set(answer))))
+		totalAgreed += len(choices)
+	return totalUnique, totalAgreed
 
-def getNumberOfUniqueAnswers(groupUniqueAnswers):
-    totalUniqueAnswers = 0
-    for uniqueGroupAnswer in groupUniqueAnswers:
-        totalUniqueAnswers += len(uniqueGroupAnswer)
-    return totalUniqueAnswers
+input = getInput("input.txt")
 
-input = getInput("debug")
-
-for group in input:
-    print("Gruppens svar:",group)
-    for person in group:
-        print("Individsvar i gruppen:",person)
-
-# print("Input:",input)
+print(countAnswers(input))
