@@ -78,9 +78,7 @@ for line in possibleCorruptions:
         input[line]["operation"] = "nop"
 
     allVisitedInstructions = []
-    if checkForCorruptLine(0,0) == False:
-        print("Change instruction with id",line,"for normal function!")
-    else:
+    if checkForCorruptLine(0,0) == True: # this change did not fix instruction, change back and run again
         if input[line]["operation"] == "nop":
             input[line]["operation"] = "jmp"
         elif input[line]["operation"] == "jmp":
