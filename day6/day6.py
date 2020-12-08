@@ -1,5 +1,5 @@
 def getInput(filename):
-        return open("/Users/jacobtilly/Documents/GitHub/AdventOfCode-2020/day6/"+filename, "r").read().replace('\n\n',',').replace("\n"," ").split(",")
+    return open("/Users/jacobtilly/Documents/GitHub/AdventOfCode-2020/day6/"+filename, "r").read().replace('\n\n',',').replace("\n"," ").split(",")
 
 def countAnswers(input):
 	totalUnique, totalAgreed = 0, 0
@@ -16,3 +16,5 @@ def countAnswers(input):
 input = getInput("input.txt")
 
 print(countAnswers(input))
+
+
